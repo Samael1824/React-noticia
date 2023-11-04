@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//componentes propios
+import Header from './components/Header';
+import Noticias from './components/Noticias';
+
+class App extends Component {
+
+  //estado donde meto las cuestiones en un array
+  state = {
+    noticias : []
+  }
+
+  componentDidMount(){
+    this.consultaNoticias();
+  }
+
+  consultaNoticias = () => {
+    let url = 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=7f43e6a0821d4f5b8c1d3161a25e0c98'
+  
+    fetch(url)
+    .then(respuesta => {
+      return respuesta.json();
+    })
+    .then(noticias => {
+      //aqui almaceno la informacion
+      this.setState({
+        noticias: noticias.articles
+      })
+    })
+  }
+
+
+  render() {
+    return(
+      <div>
+        <Header />
+        <div className='container'>
+        <Noticias 
+          noticias={
+            this.state.noticias
+          }
+        />
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;
