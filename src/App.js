@@ -18,11 +18,9 @@ class App extends Component {
   consultaNoticias = () => {
     let url = 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=7f43e6a0821d4f5b8c1d3161a25e0c98'
   
-    fetch(url)
-    .then(respuesta => {
+    fetch(url).then(respuesta => {
       return respuesta.json();
-    })
-    .then(noticias => {
+    }).then(noticias => {
       //aqui almaceno la informacion
       this.setState({
         noticias: noticias.articles
